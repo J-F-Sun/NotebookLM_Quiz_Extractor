@@ -1,0 +1,10 @@
+.DS_Store
+*.log
+
+# Editor files
+.vscode/
+.idea/
+
+# Temporary local exports
+quiz.json
+quiz.md
