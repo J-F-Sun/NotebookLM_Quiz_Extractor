@@ -146,6 +146,9 @@
 
     createPanel(false);
     loadPanelPosition();
+    window.addEventListener("resize", () => {
+      ensurePanelVisible();
+    });
     setTimeout(refreshDetectionStatus, 1000);
   }
 
@@ -1026,7 +1029,7 @@
         panel.style.top = `${parsed.top}px`;
         panel.style.right = "auto";
         panel.style.transform = "none";
-        updatePanelDocking(panel, content);
+        ensurePanelVisible();
       }
     } catch (_error) {
       // Ignore bad panel state.
@@ -1102,6 +1105,37 @@
 
   function savePanelPosition(left, top) {
     localStorage.setItem(PANEL_POS_KEY, JSON.stringify({ left, top }));
+  }
+
+  function ensurePanelVisible() {
+    const panel = state.panel;
+    const content = panel?.querySelector("#nlm-qe-ext-content");
+    if (!panel || !content) return;
+
+    const rect = panel.getBoundingClientRect();
+    const panelWidth = Math.max(Math.ceil(rect.width || panel.offsetWidth || 52), 52);
+    const panelHeight = Math.max(Math.ceil(rect.height || panel.offsetHeight || 44), 44);
+    const maxLeft = Math.max(8, window.innerWidth - panelWidth - 8);
+    const maxTop = Math.max(8, window.innerHeight - panelHeight - 8);
+
+    let nextLeft = rect.left;
+    let nextTop = rect.top;
+
+    const usesStoredPosition = panel.style.left && panel.style.left !== "auto";
+    if (!usesStoredPosition) {
+      nextLeft = maxLeft;
+      nextTop = clamp(Math.round(window.innerHeight * 0.5 - panelHeight * 0.5), 8, maxTop);
+    } else {
+      nextLeft = clamp(Math.round(nextLeft), 8, maxLeft);
+      nextTop = clamp(Math.round(nextTop), 8, maxTop);
+    }
+
+    panel.style.left = `${nextLeft}px`;
+    panel.style.top = `${nextTop}px`;
+    panel.style.right = "auto";
+    panel.style.transform = "none";
+    updatePanelDocking(panel, content);
+    savePanelPosition(nextLeft, nextTop);
   }
 
   function setupPanelDragging(panel, launcher, content) {

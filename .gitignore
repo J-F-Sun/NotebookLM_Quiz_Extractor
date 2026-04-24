@@ -8,3 +8,12 @@
 # Temporary local exports
 quiz.json
 quiz.md
+
+# Local release artifacts
+dist/
+
+# Optional local design workspace files
+chrome-extension/assets/source/*.psd
+chrome-extension/assets/source/*.xcf
+chrome-extension/assets/source/*.sketch
+chrome-extension/assets/source/*.afdesign
