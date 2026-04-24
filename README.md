@@ -11,7 +11,7 @@
 - `json`
 - `md`
 
-当前稳定实现是 [chrome-extension](NotebookLMQuizExtractor/chrome-extension)，用于处理 NotebookLM 的 iframe / blob 制品页面。它可以导出整个测验，而不只是当前题目。
+当前稳定实现是 [chrome-extension](/path/to/NotebookLMQuizExtractor/chrome-extension)，用于处理 NotebookLM 的 iframe / blob 制品页面。它可以导出整个测验，而不只是当前题目。
 
 ### 功能特性
 
@@ -25,8 +25,8 @@
 
 ### 仓库结构
 
-- [chrome-extension](NotebookLMQuizExtractor/chrome-extension)：主实现，推荐实际使用
-- [tampermonkey](NotebookLMQuizExtractor/tampermonkey)：实验 / 测试路径，当前不建议作为正式发布版本
+- [chrome-extension](/path/to/NotebookLMQuizExtractor/chrome-extension)：主实现，推荐实际使用
+- [tampermonkey](/path/to/NotebookLMQuizExtractor/tampermonkey)：实验 / 测试路径，当前不建议作为正式发布版本
 
 ### Chrome 插件安装
 
@@ -35,7 +35,7 @@
 3. 点击 `Load unpacked`
 4. 选择目录：
 
-   `NotebookLMQuizExtractor/chrome-extension`
+   `/path/to/NotebookLMQuizExtractor/chrome-extension`
 
 5. 刷新 NotebookLM 页面
 
@@ -86,7 +86,7 @@
 - `json`
 - `md`
 
-The current stable implementation is the [chrome-extension](NotebookLMQuizExtractor/chrome-extension). It is designed for NotebookLM's iframe / blob-based rendering model and can export the full quiz, not only the current question.
+The current stable implementation is the [chrome-extension](/path/to/NotebookLMQuizExtractor/chrome-extension). It is designed for NotebookLM's iframe / blob-based rendering model and can export the full quiz, not only the current question.
 
 ### Features
 
@@ -100,8 +100,8 @@ The current stable implementation is the [chrome-extension](NotebookLMQuizExtrac
 
 ### Repository Layout
 
-- [chrome-extension](NotebookLMQuizExtractor/chrome-extension): main implementation, recommended for actual use
-- [tampermonkey](NotebookLMQuizExtractor/tampermonkey): experimental / test path, not recommended as the release target
+- [chrome-extension](/path/to/NotebookLMQuizExtractor/chrome-extension): main implementation, recommended for actual use
+- [tampermonkey](/path/to/NotebookLMQuizExtractor/tampermonkey): experimental / test path, not recommended as the release target
 
 ### Install the Chrome Extension
 
@@ -110,7 +110,7 @@ The current stable implementation is the [chrome-extension](NotebookLMQuizExtrac
 3. Click `Load unpacked`
 4. Select:
 
-   `NotebookLMQuizExtractor/chrome-extension`
+   `/path/to/NotebookLMQuizExtractor/chrome-extension`
 
 5. Refresh the NotebookLM page
 
