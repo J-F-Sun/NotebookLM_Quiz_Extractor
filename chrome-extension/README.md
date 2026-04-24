@@ -11,7 +11,7 @@
 3. 点击 `Load unpacked`
 4. 选择目录：
 
-   `REPO_ROOT/chrome-extension`
+   `NotebookLMQuizExtractor/chrome-extension`
 
 5. 刷新 NotebookLM 页面
 
@@ -74,7 +74,7 @@ chrome-extension/
 3. Click `Load unpacked`
 4. Select:
 
-   `REPO_ROOT/chrome-extension`
+   `NotebookLMQuizExtractor/chrome-extension`
 
 5. Refresh the NotebookLM page
 
