@@ -24,6 +24,8 @@
 
 导出结果只保留题目、选项和答案，不保留逐项解释。
 
+面板中的 `导出全部` 会按当前 Notebook 页面中发现的测验入口顺序逐个打开测验，并将每个测验保存成单独文件。批量发现依赖页面中可见的测验入口文本。
+
 ### 目录结构
 
 ```text
@@ -86,6 +88,8 @@ This extension injects into NotebookLM and related usercontent frames so it can 
 - `md`
 
 The exported output keeps only question, options, and answer, and omits per-option explanations.
+
+The `Export All` action opens discovered quiz entries in page order and saves each quiz as separate files. Batch discovery depends on visible quiz entry text in the Notebook page.
 
 ### Directory layout
 

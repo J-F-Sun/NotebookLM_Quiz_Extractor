@@ -17,6 +17,7 @@
 
 - 检测 NotebookLM 中由应用 / iframe / blob 渲染的测验内容
 - 导出完整测验到 `json` 和 `md`
+- 自动按页面顺序打开并导出当前 Notebook 中发现的所有测验
 - 导出前自动回到第 1 题并顺序抓取
 - 导出结果只保留题目、选项和答案，不保留逐项解释
 - 支持固定导出目录
@@ -49,6 +50,15 @@
    - 切换界面语言
    - 选择固定导出目录
 6. 点击 `导出`
+
+### 批量导出所有测验
+
+1. 打开 NotebookLM 笔记本主页，确保包含测验入口的列表区域已加载
+2. 点击悬浮 `Q` 按钮
+3. 点击 `导出全部`
+4. 插件会按页面顺序自动打开每个测验，并将每个测验保存为单独的 `json` 和 `md` 文件
+
+批量导出依赖 NotebookLM 页面中可见的测验入口；未加载、被折叠或不含“测验 / quiz”等文本标识的入口可能无法被自动发现。
 
 ### 导出文件命名
 
@@ -92,6 +102,7 @@ The current stable implementation is the [chrome-extension](/path/to/NotebookLMQ
 
 - Detects quiz content rendered through NotebookLM app / iframe / blob views
 - Exports the full quiz to both `json` and `md`
+- Automatically opens and exports all quiz entries discovered in the current Notebook, in page order
 - Rewinds to question 1 before sequential export
 - Keeps only question, options, and answer in the exported output
 - Supports a fixed export directory
@@ -124,6 +135,15 @@ The current stable implementation is the [chrome-extension](/path/to/NotebookLMQ
    - change UI language
    - choose a fixed export directory
 6. Click `Export`
+
+### Batch Export All Quizzes
+
+1. Open the NotebookLM notebook page and make sure the list area containing quiz entries has loaded
+2. Click the floating `Q` launcher
+3. Click `Export All`
+4. The extension will open each quiz in page order and save each quiz as separate `json` and `md` files
+
+Batch export depends on visible quiz entries in the NotebookLM page. Entries that are not loaded, collapsed, or not labeled with text such as "quiz" may not be discovered automatically.
 
 ### Output Filename Format
 
