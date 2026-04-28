@@ -17,12 +17,14 @@
 
 - 检测 NotebookLM 中由应用 / iframe / blob 渲染的测验内容
 - 导出完整测验到 `json` 和 `md`
-- 自动按页面顺序打开并导出当前 Notebook 中发现的所有测验
+- 自动按页面顺序打开并导出当前 Notebook 中发现的已生成测验
+- 批量导出时会在 Studio 列表中按标题滚动查找测验，导出后自动返回列表继续下一个
 - 导出前自动回到第 1 题并顺序抓取
 - 导出结果只保留题目、选项和答案，不保留逐项解释
 - 支持固定导出目录
 - 悬浮启动球可拖动，并会记忆位置
-- 支持中英文界面
+- 支持中英文界面，设置入口位于面板标题栏右侧齿轮按钮
+- 使用蓝色圆形 `Q` 图标作为 Chrome 工具栏和悬浮启动入口
 
 ### 仓库结构
 
@@ -40,13 +42,15 @@
 
 5. 刷新 NotebookLM 页面
 
+> 当前版本包含 `downloads` 和 `debugger` 权限。`downloads` 用于保存导出文件；`debugger` 仅用于在 NotebookLM 忽略脚本合成点击时，派发更接近真实鼠标点击的打开测验动作。
+
 ### 使用方法
 
 1. 打开 NotebookLM 笔记本，并在右侧应用区域显示测验
 2. 点击悬浮 `Q` 按钮
 3. 点击 `刷新`
 4. 确认插件检测到了题目总数
-5. 如有需要，打开 `设置`：
+5. 如有需要，点击标题栏右侧齿轮按钮打开设置：
    - 切换界面语言
    - 选择固定导出目录
 6. 点击 `导出`
@@ -57,8 +61,9 @@
 2. 点击悬浮 `Q` 按钮
 3. 点击 `导出全部`
 4. 插件会按页面顺序自动打开每个测验，并将每个测验保存为单独的 `json` 和 `md` 文件
+5. 每导出一个测验后，插件会返回 Studio 列表并继续查找下一个测验
 
-批量导出依赖 NotebookLM 页面中可见的测验入口；未加载、被折叠或不含“测验 / quiz”等文本标识的入口可能无法被自动发现。
+批量导出会根据测验图标、标题和 NotebookLM 生成内容列表识别测验，并尽量排除普通文稿、报告、音频概览等非测验内容。如果列表尚未加载或测验被 NotebookLM 折叠到不可访问区域，可能需要先滚动 Studio 列表让内容加载。
 
 ### 导出文件命名
 
@@ -70,6 +75,10 @@
 
 `<测验标题>-<YYYYMMDD-HHMMSS>.md`
 
+批量导出时文件名前会加上序号，例如：
+
+`01-<测验标题>-<YYYYMMDD-HHMMSS>.json`
+
 ### 导出内容说明
 
 - 导出结果不包含 `explanations` 字段
@@ -78,11 +87,12 @@
 ### 说明
 
 - NotebookLM 的测验内容通常渲染在跨域 iframe / blob 上下文中，因此当前主实现采用 Chrome Extension 方案
+- 批量导出依赖 NotebookLM 当前页面 DOM 和交互行为；如果 NotebookLM 更新 UI，可能需要同步调整识别规则
 - Tampermonkey 版本目前保留在仓库中，仅作实验 / 测试用途
 
 ### 当前状态
 
-- `chrome-extension/`：活跃维护
+- `chrome-extension/`：活跃维护，当前版本 `0.2.0`
 - `tampermonkey/`：实验中，待进一步测试
 
 ---
@@ -102,12 +112,14 @@ The current stable implementation is the [chrome-extension](/path/to/NotebookLMQ
 
 - Detects quiz content rendered through NotebookLM app / iframe / blob views
 - Exports the full quiz to both `json` and `md`
-- Automatically opens and exports all quiz entries discovered in the current Notebook, in page order
+- Automatically opens and exports generated quiz entries discovered in the current Notebook, in page order
+- During batch export, scrolls the Studio list by title, returns to the list after each quiz, and continues with the next quiz
 - Rewinds to question 1 before sequential export
 - Keeps only question, options, and answer in the exported output
 - Supports a fixed export directory
 - Floating launcher is draggable and remembers its position
-- Supports both Chinese and English UI
+- Supports both Chinese and English UI, with Settings behind the gear button in the panel header
+- Uses a blue circular `Q` icon for the Chrome toolbar and floating launcher
 
 ### Repository Layout
 
@@ -125,13 +137,15 @@ The current stable implementation is the [chrome-extension](/path/to/NotebookLMQ
 
 5. Refresh the NotebookLM page
 
+> The current version requests `downloads` and `debugger`. `downloads` saves exported files. `debugger` is used only as a fallback to dispatch a more realistic mouse click when NotebookLM ignores synthetic DOM clicks.
+
 ### Usage
 
 1. Open a NotebookLM notebook and show the quiz in the right-side app panel
 2. Click the floating `Q` launcher
 3. Click `Refresh`
 4. Confirm the extension detects the total number of questions
-5. Open `Settings` if needed:
+5. Click the gear button in the panel header if needed:
    - change UI language
    - choose a fixed export directory
 6. Click `Export`
@@ -142,8 +156,9 @@ The current stable implementation is the [chrome-extension](/path/to/NotebookLMQ
 2. Click the floating `Q` launcher
 3. Click `Export All`
 4. The extension will open each quiz in page order and save each quiz as separate `json` and `md` files
+5. After each quiz is exported, the extension returns to the Studio list and continues with the next quiz
 
-Batch export depends on visible quiz entries in the NotebookLM page. Entries that are not loaded, collapsed, or not labeled with text such as "quiz" may not be discovered automatically.
+Batch export identifies quizzes from quiz icons, titles, and NotebookLM generated-content rows, while trying to exclude regular documents, reports, and audio overviews. If the list has not loaded or NotebookLM keeps items outside the accessible DOM, scroll the Studio list first so the entries load.
 
 ### Output Filename Format
 
@@ -155,6 +170,10 @@ and:
 
 `<quiz-title>-<YYYYMMDD-HHMMSS>.md`
 
+Batch export prefixes filenames with a sequence number, for example:
+
+`01-<quiz-title>-<YYYYMMDD-HHMMSS>.json`
+
 ### Output Content
 
 - The exported data does not include the `explanations` field
@@ -163,9 +182,10 @@ and:
 ### Notes
 
 - NotebookLM quiz content is usually rendered inside cross-origin iframe / blob contexts, which is why the Chrome extension is the primary implementation
+- Batch export depends on NotebookLM's current DOM and interaction behavior; if NotebookLM changes its UI, the detection rules may need updates
 - The Tampermonkey version remains in the repository only for experimental / testing purposes
 
 ### Status
 
-- `chrome-extension/`: actively maintained
+- `chrome-extension/`: actively maintained, current version `0.2.0`
 - `tampermonkey/`: experimental, pending further testing
