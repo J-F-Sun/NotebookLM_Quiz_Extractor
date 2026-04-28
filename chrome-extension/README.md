@@ -24,6 +24,12 @@
 
 导出结果只保留题目、选项和答案，不保留逐项解释。
 
+面板中的 `导出全部` 会按当前 Notebook 页面中发现的已生成测验顺序逐个打开测验，并将每个测验保存成单独文件。批量导出会在 Studio 列表中按标题滚动查找测验，每导出一个测验后自动返回列表继续下一个。
+
+设置入口位于面板标题栏右侧齿轮按钮。Chrome 工具栏和悬浮入口使用蓝色圆形 `Q` 图标。
+
+当前版本包含 `downloads` 和 `debugger` 权限。`downloads` 用于保存导出文件；`debugger` 仅用于在 NotebookLM 忽略脚本合成点击时，派发更接近真实鼠标点击的打开测验动作。
+
 ### 目录结构
 
 ```text
@@ -54,6 +60,10 @@ chrome-extension/
       cover_top_modified.png
   README.md
 ```
+
+### 当前版本
+
+- `0.2.0`
 
 ### 提交 Chrome Web Store
 
@@ -87,6 +97,12 @@ This extension injects into NotebookLM and related usercontent frames so it can 
 
 The exported output keeps only question, options, and answer, and omits per-option explanations.
 
+The `Export All` action opens generated quiz entries in page order and saves each quiz as separate files. During batch export, the extension scrolls the Studio list by title, returns to the list after each quiz, and continues with the next quiz.
+
+Settings are available from the gear button in the panel header. The Chrome toolbar and floating launcher use a blue circular `Q` icon.
+
+The current version requests `downloads` and `debugger`. `downloads` saves exported files. `debugger` is used only as a fallback to dispatch a more realistic mouse click when NotebookLM ignores synthetic DOM clicks.
+
 ### Directory layout
 
 ```text
@@ -117,6 +133,10 @@ chrome-extension/
       cover_top_modified.png
   README.md
 ```
+
+### Current Version
+
+- `0.2.0`
 
 ### Chrome Web Store packaging
 
